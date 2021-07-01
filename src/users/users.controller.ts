@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { UserEntity } from './user.entity';
 import { UsersService } from './users.service';
 
@@ -12,6 +12,11 @@ getUsers(){
     return this.service.getAllUsers()
 }
 
+@Get(":id")
+getUserById(@Param() params){
+    return this.service.getUser(params.id)
+}
+
 @Post()
 addUser(@Body() user:UserEntity){
     return this.service.createUser( user );
@@ -19,8 +24,8 @@ addUser(@Body() user:UserEntity){
 }
 
 @Put()
-updateUser(){
-    return "updateUser"
+updateUser(@Body() user:UserEntity){
+    return this.service.updateUser(user)
     
 }
 
@@ -31,8 +36,8 @@ updateAttUser(){
 }
 
 @Delete()
-deleteUser(){
-    return "deleteUser"
+deleteUser(@Body() user:UserEntity){
+    return this.service.deleteUser(user)
 
 }
 }

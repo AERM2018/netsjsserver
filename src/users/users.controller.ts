@@ -1,4 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { customImageName } from 'src/utils/customImageName';
 import { UserEntity } from './user.entity';
 import { UsersService } from './users.service';
 
@@ -20,7 +23,32 @@ getUserById(@Param() params){
 @Post()
 addUser(@Body() user:UserEntity){
     return this.service.createUser( user );
-    
+}
+
+@Post("upload")
+@UseInterceptors(
+    FileInterceptor('image',{
+        storage : diskStorage({
+            destination : './avatars',
+            filename : customImageName,
+        })
+    })
+)
+
+async uploadFile(@Body() user:UserEntity, @UploadedFile() file){
+    user.avatar = file.filename
+
+    await this.service.createUser(JSON.parse(JSON.stringify(user)));
+
+    const response = {
+        imageName: file.filename
+    }
+
+    return {
+        status : HttpStatus.OK,
+        msg: "Image uploaded successfully",
+        data: response
+    }
 }
 
 @Put()
@@ -29,15 +57,15 @@ updateUser(@Body() user:UserEntity){
     
 }
 
-@Patch()
-updateAttUser(){
-    return "updateAttUser"
+// @Patch()
+// updateAttUser(){
+//     return "patchUsers"
     
-}
+// }
 
-@Delete()
-deleteUser(@Body() user:UserEntity){
-    return this.service.deleteUser(user)
+@Delete(':id')
+deleteUser(@Param() params){
+    return this.service.deleteUser(params.id)
 
 }
 }

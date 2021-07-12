@@ -1,5 +1,5 @@
 {
-    "type": "postgresql",
+    "type": "postgres",
     "host": "ec2-54-83-82-187.compute-1.amazonaws.com",
     "port": 5432,
     "username": "ozlqnmexdifnbz",
@@ -11,5 +11,11 @@
     "synchronize":true,
     "migrations":["dist/migrations/*{.ts,.js}"],
     "migrationsTableName":"migrations_typeorm",
-    "migrationRun":true
+    "migrationRun":true,
+    "extra":{
+        "ssl":{
+            "rejectUnauthorized":false
+        }
+    },
+    "syncronize":true
 }

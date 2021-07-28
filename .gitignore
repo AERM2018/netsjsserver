@@ -2,7 +2,7 @@
 /dist
 /node_modules
 /avatars
-
+.env
 # Logs
 logs
 *.log

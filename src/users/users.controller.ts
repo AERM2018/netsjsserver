@@ -36,7 +36,7 @@ addUser(@Body() user:UserEntity){
 )
 
 async uploadFile(@Body() user:UserEntity, @UploadedFile() file){
-    user.avatar = file.filename
+    user.avatar = file.filename.split(' ')
 
     await this.service.createUser(JSON.parse(JSON.stringify(user)));
 

@@ -15,7 +15,7 @@ export class AuthorEntity {
     @Column({ length: 50})
     surname:string;
     
-    @Column({ length: 50})
+    @Column()
     birthdate:Date
     
     @Column({length:500})

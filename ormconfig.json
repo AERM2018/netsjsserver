@@ -1,10 +1,10 @@
 {
     "type": "postgres",
-    "host": "ec2-54-83-82-187.compute-1.amazonaws.com",
+    "host": "localhost",
     "port": 5432,
-    "username": "ozlqnmexdifnbz",
-    "password": "ae283a95c133ed1b6695f929a00f1e09e6a81c66d60b9d3ae8bf21895139a827",
-    "database":"d91ukf14ha2f33",
+    "username": "postgres",
+    "password": "C4s10*2016",
+    "database":"nestjsserver",
     "entities": [
         "dist/**/*.entity{.ts,.js}"
     ],
@@ -13,9 +13,7 @@
     "migrationsTableName":"migrations_typeorm",
     "migrationRun":true,
     "extra":{
-        "ssl":{
-            "rejectUnauthorized":false
-        }
+        
     },
     "syncronize":true
 }
